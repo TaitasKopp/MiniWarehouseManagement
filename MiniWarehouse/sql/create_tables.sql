@@ -1,9 +1,12 @@
+CREATE DATABASE IF NOT EXISTS MiniWarehouseManagement;
+USE MiniWarehouseManagement;
+
 CREATE TABLE IF NOT EXISTS Article (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Sku VARCHAR(50) NOT NULL UNIQUE,
     Name VARCHAR(255) NOT NULL,
     MinQuantity INT NOT NULL DEFAULT 0,
-    CreatedAT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CreatedAT TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS Stocks (
@@ -11,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Stocks (
     Quantity INT NOT NULL DEFAULT 0,
     UpdatedAT TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (ArticleId),
-    Constraint fk_stock<-article FOREIGN KEY (ArticleId) REFERENCES Article(Id) ON DELETE CASCADE
+    Constraint fk_stock_article FOREIGN KEY (ArticleId) REFERENCES Article(Id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Booking (
@@ -24,4 +27,5 @@ CREATE TABLE IF NOT EXISTS Booking (
     Constraint fk_booking_article FOREIGN KEY (ArticleId) REFERENCES Article(Id) ON DELETE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS ix_booking_article_created ON Booking (ArticleId, CreatedAT);
+CREATE INDEX ix_booking_article_created
+ON Booking (ArticleId, CreatedAT);
