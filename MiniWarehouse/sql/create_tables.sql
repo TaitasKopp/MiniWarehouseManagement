@@ -27,4 +27,5 @@ CREATE TABLE IF NOT EXISTS Booking (
     Constraint fk_booking_article FOREIGN KEY (ArticleId) REFERENCES Article(Id) ON DELETE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS ix_booking_article_created ON Booking (ArticleId, CreatedAT);
+CREATE INDEX ix_booking_article_created
+ON Booking (ArticleId, CreatedAT);
